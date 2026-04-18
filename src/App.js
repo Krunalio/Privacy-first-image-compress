@@ -157,10 +157,10 @@ function App() {
       <div className="App">
         <header className="workspace-header">
           <div>
-            <span className="eyebrow">Local-only image compression</span>
-            <h1>Upload, compress, and download in one screen.</h1>
+            <span className="eyebrow">Privacy First Compress</span>
+            <h1>Upload, compress, and download instantly.</h1>
             <p>
-              No server upload. No cloud storage. Everything runs inside this browser session.
+              Your images never leave your device. No server upload. No cloud storage. Everything runs locally in your browser.
             </p>
           </div>
         </header>
@@ -169,17 +169,17 @@ function App() {
           <section className="workspace-card workspace-card--primary workspace-panel">
             <div className="section-heading">
               <div>
-                <span className="section-heading__eyebrow">Image upload</span>
-                <h2>Upload images</h2>
+                <span className="section-heading__eyebrow">Step 1: Upload</span>
+                <h2>Select your images</h2>
               </div>
-              <p>Drop files or browse from your device. Images stay local to this tab.</p>
+              <p>Drag & drop or click to browse. Your images stay private on your device.</p>
             </div>
 
             <FileUploader onFilesSelected={handleFileUpload} />
 
             <div className="panel-note">
-              <strong>Privacy</strong>
-              <span>Files are read in-browser only and never sent to your backend.</span>
+              <strong>Privacy First</strong>
+              <span>All processing happens in your browser. Images never leave your device.</span>
             </div>
 
             {files.length > 0 ? (
@@ -224,10 +224,10 @@ function App() {
           <section className="workspace-card workspace-card--secondary workspace-panel">
             <div className="section-heading">
               <div>
-                <span className="section-heading__eyebrow">Compression settings</span>
-                <h2>Choose output settings</h2>
+                <span className="section-heading__eyebrow">Step 2 & 3: Compress & Download</span>
+                <h2>Configure and export</h2>
               </div>
-              <p>Adjust quality, keep names if needed, then compress and download.</p>
+              <p>Adjust settings, compress locally, and download instantly with zero privacy compromise.</p>
             </div>
 
             <div className="panel-stack">
@@ -347,7 +347,7 @@ function App() {
               )}
 
               <p className="panel-credit">
-                Built by <a href="https://avadhana.in">Avadhana</a>
+                Built by <a href="https://www.instagram.com/krunal.avatar">Krunal</a>
               </p>
             </div>
           </section>

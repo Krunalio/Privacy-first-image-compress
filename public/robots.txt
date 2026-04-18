@@ -1,5 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
-Sitemap: https://beta.avadhana.in/sitemap.xml  
+Sitemap: https://privacy-first-image-compress.vercel.app/sitemap.xml  
 User-agent: *
 Disallow:
 

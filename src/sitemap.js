@@ -1,6 +1,6 @@
 
 const sitemap = require('sitemap');
-const hostname = 'https://beta.avadhana.in';
+const hostname = 'https://privacy-first-image-compress.vercel.app';
 
 const urls = [
   { url: '/', changefreq: 'daily', priority: 1 },

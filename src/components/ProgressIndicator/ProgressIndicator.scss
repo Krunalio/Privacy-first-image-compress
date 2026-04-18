@@ -1,0 +1,37 @@
+.progress-container {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 6px 0;
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: #24354b;
+
+  strong {
+    font-size: 0.95rem;
+  }
+
+  span {
+    color: #5b697c;
+    font-weight: 700;
+  }
+}
+
+.progress-track {
+  overflow: hidden;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(18, 55, 103, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ff8c4b 0%, #ff5d47 45%, #234d7b 100%);
+  transition: width 0.3s ease-in-out;
+}

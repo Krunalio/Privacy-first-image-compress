@@ -1,0 +1,12 @@
+$mobile : 992px;
+$larger : 1501px;
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+@mixin larger {
+    @media (max-width: $larger) {
+        @content;
+    }
+}

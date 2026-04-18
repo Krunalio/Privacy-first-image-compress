@@ -157,8 +157,8 @@ function App() {
       <div className="App">
         <header className="workspace-header">
           <div>
-            <span className="eyebrow">Privacy First Compress</span>
-            <h1>Upload, compress, and download instantly.</h1>
+            <span className="eyebrow">Your Privacy First</span>
+            <h1>Privately Upload, compress, and download instantly.</h1>
             <p>
               Your images never leave your device. No server upload. No cloud storage. Everything runs locally in your browser.
             </p>
@@ -224,8 +224,8 @@ function App() {
           <section className="workspace-card workspace-card--secondary workspace-panel">
             <div className="section-heading">
               <div>
-                <span className="section-heading__eyebrow">Step 2 & 3: Compress & Download</span>
-                <h2>Configure and export</h2>
+                <span className="section-heading__eyebrow">Compression settings</span>
+                <h2>Choose output settings</h2>
               </div>
               <p>Adjust settings, compress locally, and download instantly with zero privacy compromise.</p>
             </div>

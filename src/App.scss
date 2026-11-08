@@ -83,6 +83,38 @@
   }
 }
 
+.github-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #16283f 0%, #234d7b 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(22, 40, 63, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(22, 40, 63, 0.24);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #ff8c4b;
+    outline-offset: 2px;
+  }
+
+  .github-star__icon {
+    color: #ffb36b;
+  }
+}
+
 .workspace-header__badges {
   display: flex;
   flex-wrap: wrap;

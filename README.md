@@ -63,6 +63,12 @@ Issues and pull requests are welcome. Some ideas:
 - AVIF output
 - Moving from Create React App to Vite
 
+Pull requests are reviewed and merged by the maintainer. Please open an issue first for bigger changes so we can agree on the approach.
+
+## Contact
+
+Questions, ideas or feedback: **joshiikrunall@gmail.com**
+
 ## License
 
 [MIT](LICENSE) © Krunal

@@ -1,0 +1,32 @@
+# Privacy First Compress
+
+> Free, open-source image compressor that runs entirely in the web browser. Photos are never uploaded to a server: compression happens on the user's own device. Output keeps the same resolution with near-identical visual quality, and JPEG photos keep their metadata (date taken, camera, GPS location).
+
+Privacy First Compress is for people who want to free up storage without deleting photos and without sending personal pictures to an online service.
+
+## How it works
+
+- Images are drawn onto an HTML canvas and re-encoded in the browser at the chosen quality level (low, medium or high compression).
+- The page sets a Content Security Policy with `connect-src 'none'`, so the browser blocks every network request the page could use to send data. Users can confirm this in the browser DevTools Network tab while compressing.
+- There are no analytics, no accounts and no server-side processing. Fonts are bundled with the app.
+- Many images can be compressed at once and downloaded together as a ZIP file.
+- A file is never made larger: if compression does not reduce the size, the original file is returned.
+- Example from testing: a 1.57 MB JPEG photo was reduced to 453 KB (72% smaller).
+
+## Formats
+
+- JPEG in: JPEG out, with EXIF metadata (date taken, camera, GPS) preserved. This can be switched off.
+- WebP in: WebP out.
+- PNG with transparency: WebP out, transparency kept.
+- PNG without transparency, BMP and other formats the browser can decode: JPEG out.
+- GIF and SVG: returned unchanged.
+
+## Links
+
+- [Live app](https://privacy-first-image-compress.vercel.app): use it in any modern browser, no install or sign-up
+- [Source code on GitHub](https://github.com/Krunalio/Privacy-first-image-compress): MIT licensed, built with React
+- [README](https://github.com/Krunalio/Privacy-first-image-compress/blob/main/README.md): background, features and how to run it locally
+
+## Contact
+
+- Maintainer email: joshiikrunall@gmail.com

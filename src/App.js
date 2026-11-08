@@ -340,7 +340,7 @@ function App() {
               )}
 
               <p className="panel-credit">
-                Built by Krunal
+                Built by Krunal · Contact: <a href="mailto:joshiikrunall@gmail.com">joshiikrunall@gmail.com</a>
               </p>
             </div>
           </section>

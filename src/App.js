@@ -5,6 +5,7 @@ import ProgressIndicator from './components/ProgressIndicator/ProgressIndicator'
 import ImagePreview from './components/ImagePreview'; 
 import JSZip from 'jszip'; 
 import FileSaver from 'file-saver'; // Import FileSaver for downloading files
+import { compressImage } from './utils/compress';
 import './App.scss';
 
 const formatFileSize = (size) => {
@@ -31,6 +32,7 @@ function App() {
   const [compressionDetails, setCompressionDetails] = useState([]);
   const [previewCompressedFile, setPreviewCompressedFile] = useState(null);
   const [keepOriginalName, setKeepOriginalName] = useState(false);
+  const [keepMetadata, setKeepMetadata] = useState(true);
 
   const handleFileUpload = (uploadedFiles) => {
     setFiles(prevFiles => [...prevFiles, ...uploadedFiles]);
@@ -42,67 +44,37 @@ function App() {
     setCompressionSettings(newSettings);
   };
 
-  const compressImage = (file, level) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, img.width, img.height);
-          
-          // Adjust quality based on compression level
-          const baseQuality = level === 'low' ? 0.78 : level === 'medium' ? 0.58 : 0.4;
-          const quality = compressionSettings.preserveQuality ? Math.min(baseQuality + 0.12, 0.92) : baseQuality;
-          
-          canvas.toBlob((blob) => {
-            const newFileName = keepOriginalName ? file.name : `compressed_${file.name}`;
-            resolve(new File([blob], newFileName, { type: 'image/jpeg' }));
-          }, 'image/jpeg', quality);
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
   const handleCompression = async () => {
     setProgress(0);
     const totalFiles = files.length;
     const compressed = [];
-    const details = []; // Array to hold compression details
+    const details = [];
+    const options = { ...compressionSettings, keepMetadata, keepOriginalName };
 
     for (let i = 0; i < totalFiles; i++) {
       const file = files[i];
-      let compressedFile;
-
-      if (file.type.startsWith('image/')) {
-        compressedFile = await compressImage(file, compressionSettings.level);
-      } else {
-        compressedFile = new File([file], file.name, { type: file.type });
-      }
+      const result = await compressImage(file, options);
 
       details.push({
         name: file.name,
         originalSize: file.size,
-        compressedSize: compressedFile.size,
+        compressedSize: result.file.size,
+        keptOriginal: result.keptOriginal,
+        reason: result.reason,
       });
 
       compressed.push({
-        file: compressedFile,
-        name: file.name,
+        file: result.file,
+        name: result.file.name,
         originalSize: file.size,
-        compressedSize: compressedFile.size,
+        compressedSize: result.file.size,
       });
 
       setProgress(((i + 1) / totalFiles) * 100);
     }
 
     setCompressedFiles(compressed);
-    setCompressionDetails(details); // Update compression details
+    setCompressionDetails(details);
   };
 
   const handleSingleImageDownload = () => {
@@ -114,8 +86,18 @@ function App() {
 
   const handleZipDownload = () => {
     const zip = new JSZip();
-    compressedFiles.forEach((compressedFile) => {
-      zip.file(compressedFile.name, compressedFile.file);
+    const usedNames = new Set();
+    compressedFiles.forEach(({ file }) => {
+      // Avoid two files overwriting each other inside the archive.
+      let name = file.name;
+      const dot = name.lastIndexOf('.');
+      const stem = dot > 0 ? name.slice(0, dot) : name;
+      const ext = dot > 0 ? name.slice(dot) : '';
+      for (let n = 1; usedNames.has(name.toLowerCase()); n++) {
+        name = `${stem} (${n})${ext}`;
+      }
+      usedNames.add(name.toLowerCase());
+      zip.file(name, file, { date: new Date(file.lastModified) });
     });
     zip.generateAsync({ type: 'blob' }).then((content) => {
       FileSaver.saveAs(content, 'compressed_images.zip'); // Download the zip file
@@ -245,6 +227,15 @@ function App() {
                 />
                 <span>Keep original filename</span>
               </label>
+
+              <label className="toggle-row">
+                <input
+                  type="checkbox"
+                  checked={keepMetadata}
+                  onChange={(event) => setKeepMetadata(event.target.checked)}
+                />
+                <span>Keep photo details (date taken, camera, location) in JPEGs</span>
+              </label>
               </div>
 
               <div className="action-header">
@@ -332,7 +323,9 @@ function App() {
                             <span>{formatFileSize(detail.originalSize)} to {formatFileSize(detail.compressedSize)}</span>
                           </div>
                           <span>
-                            {detail.originalSize > 0
+                            {detail.keptOriginal
+                              ? `${detail.reason}, original kept`
+                              : detail.originalSize > 0
                               ? `${Math.max(
                                   0,
                                   Math.round(((detail.originalSize - detail.compressedSize) / detail.originalSize) * 100)

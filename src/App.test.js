@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the privacy-first workspace', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/your images never leave your device/i)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /start local compression/i })).toBeDisabled();
+  expect(screen.getByLabelText(/keep photo details/i)).toBeChecked();
 });

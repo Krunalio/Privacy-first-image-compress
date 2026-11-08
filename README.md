@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Privacy First Compress
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Compress photos right in your browser. Nothing is uploaded, ever.
 
-## Available Scripts
+**Live app:** https://privacy-first-image-compress.vercel.app
 
-In the project directory, you can run:
+![Privacy First Compress](public/compress_image_online.png)
 
-### `npm start`
+## Why I built this
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+My phone and laptop kept running out of storage. I didn't want to delete photos, and I didn't want them to look worse either. The online compressors I tried all work the same way: you upload your pictures to someone else's server and hope they get deleted afterwards. For personal photos I wasn't comfortable with that.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+So in 2025 I built a compressor where all the work happens on your own device. Your browser does the compression, and the page can't even open a network connection to send your files anywhere.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **100% local.** Images are processed in browser memory. No server, no account, no tracking or analytics.
+- **Batch compression.** Drop in many images at once and download them as one ZIP.
+- **Three levels.** Pick better quality or smaller files, with an optional "bias toward quality" setting.
+- **Keeps photo details.** Date taken, camera and location stay in compressed JPEGs, so your gallery still sorts them correctly. You can switch this off.
+- **Never makes a file bigger.** If compression doesn't help, you get the original back.
+- **Keeps transparency.** Transparent PNGs become WebP, which keeps the transparent areas.
 
-### `npm run build`
+| Input | Output |
+|---|---|
+| JPEG | JPEG (metadata kept) |
+| WebP | WebP |
+| PNG with transparency | WebP |
+| PNG without transparency, BMP, others | JPEG |
+| GIF, SVG | Left unchanged |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Don't trust me, check it
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Open the app and press `F12` to open DevTools, then go to the **Network** tab.
+2. Compress some images.
+3. You'll see no requests at all while it works.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The page also ships a Content Security Policy with `connect-src 'none'`. That tells the browser to block every `fetch`, XHR, WebSocket and beacon from the page, so even a bug couldn't upload your images. Fonts are bundled with the app, so the page doesn't contact Google Fonts or any other third party.
 
-### `npm run eject`
+## Run it yourself
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/Krunalio/Privacy-first-image-compress.git
+cd Privacy-first-image-compress
+npm install
+npm start        # dev server at http://localhost:3000
+npm test         # run tests
+npm run build    # production build in ./build
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The build is a set of static files. You can host it anywhere, or open it on a machine with no internet connection.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## How it works
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Each image is drawn onto an HTML `<canvas>` and re-encoded with `canvas.toBlob()` at the quality you picked. For JPEGs, the original EXIF block is copied into the new file, with the orientation tag reset because the browser has already rotated the pixels. The main code is in [`src/utils/compress.js`](src/utils/compress.js) and [`src/utils/exif.js`](src/utils/exif.js).
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Issues and pull requests are welcome. Some ideas:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Resize options (max width/height)
+- Offline install as a PWA
+- AVIF output
+- Moving from Create React App to Vite
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT](LICENSE) © Krunal

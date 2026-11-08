@@ -5,23 +5,25 @@
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Privacy guarantee enforced by the browser: the page may not open any
+       network connection (connect-src 'none'), so images cannot be uploaded. -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="theme-color" content="#000000" />
   <meta name="keywords" content="privacy image compress,compress image online,free image compressor,local compression">
-  <meta name="description"
-    content="Privacy First Compress - Compress images locally in your browser. No server upload, no data tracking. Keep your images private." />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <!-- HTML Meta Tags -->
   <title>Privacy First Compress - Local Image Compressor</title>
   <meta name="description"
-    content="Privacy First Compress - Compress images locally in your browser. No server upload, no data tracking. Keep your images private.">
+    content="Privacy First Compress - Compress images locally in your browser. No server upload, no tracking. Keep your images private.">
 
   <!-- Facebook Meta Tags -->
   <meta property="og:url" content="https://privacy-first-image-compress.vercel.app">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Privacy First Compress - Local Image Compressor">
   <meta property="og:description"
-    content="Compress images locally in your browser without uploading. Complete privacy, no data tracking. Fast and free.">
-  <meta property="og:image" content="%PUBLIC_URL%/compress_image_online.png">
+    content="Compress images locally in your browser without uploading. Complete privacy, no tracking. Fast and free.">
+  <meta property="og:image" content="https://privacy-first-image-compress.vercel.app/compress_image_online.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -29,19 +31,10 @@
   <meta property="twitter:url" content="https://privacy-first-image-compress.vercel.app">
   <meta name="twitter:title" content="Privacy First Compress - Local Image Compressor">
   <meta name="twitter:description"
-    content="Compress images locally in your browser without uploading. Complete privacy, no data tracking. Fast and free.">
-  <meta name="twitter:image" content="%PUBLIC_URL%/compress_image_online.png">
+    content="Compress images locally in your browser without uploading. Complete privacy, no tracking. Fast and free.">
+  <meta name="twitter:image" content="https://privacy-first-image-compress.vercel.app/compress_image_online.png">
 
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6W6KVCG0VR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-
-  gtag('config', 'G-6W6KVCG0VR');
-</script>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>

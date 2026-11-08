@@ -7,3 +7,10 @@ test('renders the privacy-first workspace', () => {
   expect(screen.getByRole('button', { name: /start local compression/i })).toBeDisabled();
   expect(screen.getByLabelText(/keep photo details/i)).toBeChecked();
 });
+
+test('links to the GitHub repo without any live widget', () => {
+  render(<App />);
+  const star = screen.getByRole('link', { name: /star on github/i });
+  expect(star).toHaveAttribute('href', 'https://github.com/Krunalio/Privacy-first-image-compress');
+  expect(star).toHaveAttribute('rel', 'noopener noreferrer');
+});

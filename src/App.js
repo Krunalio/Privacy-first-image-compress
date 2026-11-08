@@ -8,6 +8,8 @@ import FileSaver from 'file-saver'; // Import FileSaver for downloading files
 import { compressImage } from './utils/compress';
 import './App.scss';
 
+const GITHUB_URL = 'https://github.com/Krunalio/Privacy-first-image-compress';
+
 const formatFileSize = (size) => {
   if (!Number.isFinite(size) || size <= 0) {
     return '0 KB';
@@ -145,6 +147,21 @@ function App() {
               Your images never leave your device. No server upload. No cloud storage. Everything runs locally in your browser.
             </p>
           </div>
+          {/* Plain link on purpose: a live star count would need a network request, which the privacy CSP blocks. */}
+          <a
+            className="github-star"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+            </svg>
+            <span>Star on GitHub</span>
+            <svg aria-hidden="true" className="github-star__icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.5l2.94 5.96 6.56.95-4.75 4.63 1.12 6.53L12 17.5l-5.87 3.07 1.12-6.53L2.5 9.41l6.56-.95L12 2.5z" />
+            </svg>
+          </a>
         </header>
 
         <main className="workspace-grid">
@@ -340,7 +357,9 @@ function App() {
               )}
 
               <p className="panel-credit">
-                Built by Krunal · Contact: <a href="mailto:joshiikrunall@gmail.com">joshiikrunall@gmail.com</a>
+                Built by Krunal · Open source on{' '}
+                <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
+                {' '}· Contact: <a href="mailto:joshiikrunall@gmail.com">joshiikrunall@gmail.com</a>
               </p>
             </div>
           </section>

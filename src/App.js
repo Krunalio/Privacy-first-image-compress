@@ -340,7 +340,7 @@ function App() {
               )}
 
               <p className="panel-credit">
-                Built by <a href="https://www.instagram.com/krunal.avatar">Krunal</a>
+                Built by Krunal
               </p>
             </div>
           </section>
